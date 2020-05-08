@@ -60,7 +60,7 @@ export default {
     },
     changeCheckbox (ID) {
       // alert(ID)
-      this.$store.commit('changeCheckbox', ID)
+      this.$store.commit('changeCheckbox2', ID)
     },
     deleteAll () {
       this.$store.commit('cleanDone')

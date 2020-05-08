@@ -9,7 +9,8 @@
         <!-- 复选框 -->
         <!-- 选中与未选中 -->
         <!-- <a-checkbox :checked="item.done" @change="(event)=>{changeCheckbox(event, item.id)}">{{item.info}}</a-checkbox> -->
-        <a-checkbox :checked="item.done" @change="changeCheckbox($event,item.id)">{{item.info}}</a-checkbox>
+        <a-checkbox :checked="item.done" @change="changeCheckbox(item.id)">{{item.info}}</a-checkbox>
+        <!-- <a-checkbox :checked="item.done" @change="changeCheckboxO($event,item.id)">{{item.info}}</a-checkbox> -->
         <!-- 删除链接 -->
         <a slot="actions" @click="deleteTodoItem(item.id)">删除</a>
       </a-list-item>
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
 
-    ...mapMutations(['changeInputValue', 'addItem', 'deleteItem', 'changeCheckbox1', 'cleanDone', 'changeKey']),
+    ...mapMutations(['changeInputValue', 'addItem', 'deleteItem', 'changeCheckbox1', 'changeCheckbox2', 'cleanDone', 'changeKey']),
     ...mapActions(['getList']),
     changeValue (e) {
       this.changeInputValue(e.target.value)
@@ -60,7 +61,10 @@ export default {
     deleteTodoItem (ID) {
       this.deleteItem(ID)
     },
-    changeCheckbox (e, ID) {
+    changeCheckbox (ID) {
+      this.changeCheckbox2(ID)
+    },
+    changeCheckboxO (e, ID) {
       const params = {
         id: ID,
         status: e.target.checked
