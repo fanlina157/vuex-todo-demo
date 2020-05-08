@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'app',
   data () {
@@ -44,43 +44,33 @@ export default {
     ...mapGetters(['count', 'infoList'])
   },
   methods: {
-
-    ...mapMutations(['changeInputValue', 'addItem', 'deleteItem', 'changeCheckbox', 'cleanDone', 'changeKey']),
-    ...mapActions(['getList']),
     changeValue (e) {
       // console.log(e.target.value)
-      // this.$store.commit('changeInputValue', e.target.value)
-      this.changeInputValue(e.target.value)
+      this.$store.commit('changeInputValue', e.target.value)
     },
     addTodoItem () {
       if (this.inputValue.trim().length <= 0) {
         return this.$message.warning('不能为空')
       }
-      this.addItem()
-      // this.$store.commit('addItem')
+      this.$store.commit('addItem')
     },
     deleteTodoItem (ID) {
       // alert(ID)
-      this.deleteItem(ID)
-      // this.$store.commit('deleteItem', ID)
+      this.$store.commit('deleteItem', ID)
     },
     changeCheckbox (ID) {
       // alert(ID)
-      this.changeCheckbox(ID)
-      // this.$store.commit('changeCheckbox', ID)
+      this.$store.commit('changeCheckbox', ID)
     },
     deleteAll () {
-      this.cleanDone()
-      // this.$store.commit('cleanDone')
+      this.$store.commit('cleanDone')
     },
     searchList (key) {
-      this.changeKey(key)
-      // this.$store.commit('changeKey', key)
+      this.$store.commit('changeKey', key)
     }
   },
   created () {
-    // this.$store.dispatch('getList')
-    this.getList()
+    this.$store.dispatch('getList')
   }
 }
 </script>
