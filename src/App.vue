@@ -8,7 +8,8 @@
       <a-list-item slot="renderItem" slot-scope="item">
         <!-- 复选框 -->
         <!-- 选中与未选中 -->
-        <a-checkbox :checked="item.done" @change="changeCheckbox(item.id)">{{item.info}}</a-checkbox>
+        <!-- <a-checkbox :checked="item.done" @change="(event)=>{changeCheckbox(event, item.id)}">{{item.info}}</a-checkbox> -->
+        <a-checkbox :checked="item.done" @change="changeCheckbox($event,item.id)">{{item.info}}</a-checkbox>
         <!-- 删除链接 -->
         <a slot="actions" @click="deleteTodoItem(item.id)">删除</a>
       </a-list-item>
@@ -45,11 +46,9 @@ export default {
   },
   methods: {
 
-    ...mapMutations(['changeInputValue', 'addItem', 'deleteItem', 'changeCheckbox', 'cleanDone', 'changeKey']),
+    ...mapMutations(['changeInputValue', 'addItem', 'deleteItem', 'changeCheckbox1', 'cleanDone', 'changeKey']),
     ...mapActions(['getList']),
     changeValue (e) {
-      // console.log(e.target.value)
-      // this.$store.commit('changeInputValue', e.target.value)
       this.changeInputValue(e.target.value)
     },
     addTodoItem () {
@@ -57,29 +56,25 @@ export default {
         return this.$message.warning('不能为空')
       }
       this.addItem()
-      // this.$store.commit('addItem')
     },
     deleteTodoItem (ID) {
-      // alert(ID)
       this.deleteItem(ID)
-      // this.$store.commit('deleteItem', ID)
     },
-    changeCheckbox (ID) {
-      // alert(ID)
-      this.changeCheckbox(ID)
-      // this.$store.commit('changeCheckbox', ID)
+    changeCheckbox (e, ID) {
+      const params = {
+        id: ID,
+        status: e.target.checked
+      }
+      this.changeCheckbox1(params)
     },
     deleteAll () {
       this.cleanDone()
-      // this.$store.commit('cleanDone')
     },
     searchList (key) {
       this.changeKey(key)
-      // this.$store.commit('changeKey', key)
     }
   },
   created () {
-    // this.$store.dispatch('getList')
     this.getList()
   }
 }

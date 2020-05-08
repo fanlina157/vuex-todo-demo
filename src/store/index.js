@@ -40,13 +40,23 @@ export default new Vuex.Store({
         state.list.splice(index, 1)
       }
     },
-    // 修改复选框选中状态
-    changeCheckbox (state, ID) {
+    // 修改复选框选中状态  一  mapMutations 下 报错RangeError: Maximum call stack size exceeded？？？？？？？？？？？？
+    // changeCheckbox (state, ID) {
+    //   // 也可以通过 e.target.checked 属性
+    //   const index = state.list.findIndex(item => item.id === ID)
+    //   if (index !== -1) {
+    //     // 哎呀呀---------- 通过index 找到done
+    //     state.list[index].done = !state.list[index].done
+    //   }
+    // },
+
+    // 修改复选框选中状态  二
+    changeCheckbox1 (state, params) {
       // 也可以通过 e.target.checked 属性
-      const index = state.list.findIndex(item => item.id === ID)
+      const index = state.list.findIndex(item => item.id === params.id)
       if (index !== -1) {
         // 哎呀呀---------- 通过index 找到done
-        state.list[index].done = !state.list[index].done
+        state.list[index].done = params.status
       }
     },
     // 清除已完成
